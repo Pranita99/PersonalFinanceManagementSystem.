@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>PersonalFinanceManagementSystem</groupId>
+    <artifactId>PersonalFinanceManagementSystem</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Personal Finance Management System</name>
+    <description>Project</description>
+
+    <dependencies>
+        <!-- JUnit Dependency -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- PIT Plugin Dependency -->
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>0.15</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test/java</testSourceDirectory>
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <!-- Maven Surefire Plugin (for running tests) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!-- PIT Mutation Testing Plugin -->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.8.1</version>
+                <configuration>
+                    <targetClasses>finance.management.*</targetClasses> <!-- The target classes for mutation -->
+                    <targetTests>finance.management.*Test</targetTests> <!-- Target all test classes -->
+                    <outputFormats>
+                        <outputFormat>HTML</outputFormat> <!-- Generate HTML report -->
+                    </outputFormats>
+                    <threads>2</threads> <!-- Increase the number of threads for parallelism -->
+                    <jvmArgs>
+                        <jvmArg>-Xmx2048m</jvmArg> <!-- Increase to 2GB -->
+                        <jvmArg>-Xms1024m</jvmArg> <!-- Set initial memory allocation -->
+                    </jvmArgs>
+                    <mutationThreshold>50</mutationThreshold> <!-- Set a mutation score threshold to ensure quality -->
+                    <timeoutConst>4000</timeoutConst> <!-- Increase the timeout if your tests take longer -->
+                    <forkCount>1</forkCount> <!-- Increase fork count to improve performance on multicore systems -->
+                    <excludedMethods>main</excludedMethods> <!-- Exclude main methods -->
+                    <includedGroups>unit, integration</includedGroups> <!-- To focus on different levels of tests -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,7 @@
+finance\management\ReportGeneratorTest.class
+finance\management\IncomeTest.class
+finance\management\SavingsGoalTest.class
+finance\management\FinanceManagerTest.class
+finance\management\TransactionTest.class
+finance\management\BudgetManagerTest.class
+finance\management\ExpenseTest.class
